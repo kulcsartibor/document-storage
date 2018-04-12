@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+    <form action="/invoices" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="bucket" name="bucket">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<div>
+    <ul id="file-list"></ul>
+</div>
+
+<script>
+    var fileList = document.querySelector("#file-list");
+    (function() {
+        fetch("/invoices").then(function(response) {
+            response.json().then(function(data) {
+                if (Array.isArray(data) && data.length) {
+                    for (var i=0;i<data.length;i++) {
+                        var li = document.createElement("li");
+                        var name = data[i].fileName;
+                        var bucket = data[i].bucket;
+                        var objectId = data[i].objectId;
+                        li.innerHTML = "<a href='/invoices/"+bucket+"/"+objectId+"?viewToken=6d3dc1b2-3e90-11e8-b467-0ed5f89f718b'>"+name+"</a>";
+                        fileList.appendChild(li);
+                    }
+                }
+            });
+        })
+    })();
+</script>
+</body>
+</html>
