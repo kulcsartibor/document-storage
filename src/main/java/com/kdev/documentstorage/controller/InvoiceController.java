@@ -48,7 +48,7 @@ import static com.mongodb.client.model.Filters.*;
  */
 @Slf4j
 @Controller
-@RequestMapping("invoices")
+@RequestMapping("/invoices")
 public class InvoiceController {
 
 	@Value("${spring.data.mongodb.database}")
